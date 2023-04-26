@@ -8,6 +8,10 @@ namespace RPGCreateNow_Local.Data
     public class StockPlayerData : MonoBehaviour,ISetPlayerData
     {
         PlayerStatus_Structure playerStatusData;
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
         void ISetPlayerData.SetPlayerStatusData(PlayerStatus_Structure setData)
         {
             playerStatusData = setData;

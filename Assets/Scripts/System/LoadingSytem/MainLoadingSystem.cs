@@ -19,7 +19,8 @@ namespace RPGCreateNow_Local.System
         PlayerStatus_Structure newData = new PlayerStatus_Structure();
         FileAccessSystem fileAccessSystem = new FileAccessSystem();
         ISetPlayerData setPlayerData;
-        
+        SceneChangeSystem sceneChangeSystem = new SceneChangeSystem();
+
         private void Start()
         {
             playerNameObj1.SetActive(false);
@@ -48,6 +49,7 @@ namespace RPGCreateNow_Local.System
                 fileAccessSystem.LoadFileSystem(pass, fileNamePass, out newData);
                 setPlayerData.SetPlayerStatusData(newData);
                 Debug.Log(newData.playerName);
+                sceneChangeSystem.SceneChange(SceneNameS.Map);
             }
         }
 
@@ -64,6 +66,7 @@ namespace RPGCreateNow_Local.System
             string fileNamePass = "/player.json";
             fileAccessSystem.SaveFileSystem(pass, fileNamePass, newData);
             setPlayerData.SetPlayerStatusData(newData);
+            sceneChangeSystem.SceneChange(SceneNameS.Map);
         }
         public void NameOut()
         { 
