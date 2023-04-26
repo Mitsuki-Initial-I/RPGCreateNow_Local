@@ -1,9 +1,7 @@
 {
-    "name": "RPGCreateNow_Local.Data",
-    "rootNamespace": "RPGCreateNow_Local.Data",
-    "references": [
-        "GUID:c9200d93f9652b74297961977bcc6a30"
-    ],
+    "name": "RPGCreateNow_Local.UseCase",
+    "rootNamespace": "RPGCreateNow_Local.UseCase",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
