@@ -1,0 +1,14 @@
+{
+    "name": "RPGCreateNow_Local.Data",
+    "rootNamespace": "RPGCreateNow_Local.Data",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
