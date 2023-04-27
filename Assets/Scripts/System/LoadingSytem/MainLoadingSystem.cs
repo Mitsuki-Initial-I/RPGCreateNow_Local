@@ -2,6 +2,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using RPGCreateNow_Local.UseCase;
+using RPGCreateNow_Local.Data;
 
 namespace RPGCreateNow_Local.System
 {
@@ -16,61 +17,53 @@ namespace RPGCreateNow_Local.System
         [SerializeField]
         Text playerNameCheckText;
 
-        PlayerStatus_Structure newData = new PlayerStatus_Structure();
-        FileAccessSystem fileAccessSystem = new FileAccessSystem();
-        ISetPlayerData setPlayerData;
-        SceneChangeSystem sceneChangeSystem = new SceneChangeSystem();
+        PlayerStatus_Structure playerStatusData = new PlayerStatus_Structure();
+        PlayLog_Structure playLogData = new PlayLog_Structure();
 
+        ISetPlayerData setPlayerData;
+
+        SceneChangeSystem sceneChangeSystem = new SceneChangeSystem();
+        PlayerStatusDataAccess playerStatusDataAccess = new PlayerStatusDataAccess();
+        PlayLogDataAccess playLogDataAccess = new PlayLogDataAccess();
         private void Start()
         {
             playerNameObj1.SetActive(false);
             playerNameObj2.SetActive(false);
             setPlayerData = GameObject.Find("StockPlayerData").GetComponent<ISetPlayerData>();
-            FileAccessSystem fileAccessSystem = new FileAccessSystem();
             string pass = $"{Application.persistentDataPath}/Data";
-            string fileNamePass = "/player.json";
-            string fileName = pass + fileNamePass;
            
-            if (!Directory.Exists(pass)|| !File.Exists(fileName))
+            if (!Directory.Exists(pass))
             {
-                newData.lv = 1;
-                newData.hp = 10;
-                newData.mp = 10;
-                newData.ap = 10;
-                newData.dp = 10;
-                newData.map = 10;
-                newData.mdp = 10;
-                newData.sp = 10;
-                newData.exp = 0;
+                playerStatusData = playerStatusDataAccess.FirstData();
+                playLogData = playLogDataAccess.FirstData();
                 playerNameObj1.SetActive(true);
             }
             else
             {
-                fileAccessSystem.LoadFileSystem(pass, fileNamePass, out newData);
-                setPlayerData.SetPlayerStatusData(newData);
-                Debug.Log(newData.playerName);
-                sceneChangeSystem.SceneChange(SceneNameS.Map);
+                playerStatusDataAccess.PlayerStatusDataLoad(out playerStatusData);
+                playLogDataAccess.PlayLogDataLoad(out playLogData);
+                setPlayerData.SetPlayerStatusData(playerStatusData);
+                sceneChangeSystem.SceneChange(SceneNameS.Home);
             }
         }
 
         public void NameCheck()
         {
-            newData.playerName = playerNameText.text;
+            playerStatusData.playerName = playerNameText.text;
             playerNameObj1.SetActive(false);
             playerNameObj2.SetActive(true);
-            playerNameCheckText.text = $"プレイヤー名\n{newData.playerName}\nでよろしいですか？";
+            playerNameCheckText.text = $"プレイヤー名\n{playerStatusData.playerName}\nでよろしいですか？";
         }
         public void NameOk()
         {
-            string pass = $"{Application.persistentDataPath}/Data";
-            string fileNamePass = "/player.json";
-            fileAccessSystem.SaveFileSystem(pass, fileNamePass, newData);
-            setPlayerData.SetPlayerStatusData(newData);
-            sceneChangeSystem.SceneChange(SceneNameS.Map);
+            playerStatusDataAccess.PlayerStatusDataSeva(playerStatusData);
+            playLogDataAccess.PlayLogDataSeva(playLogData);
+            setPlayerData.SetPlayerStatusData(playerStatusData);
+            sceneChangeSystem.SceneChange(SceneNameS.Home);
         }
         public void NameOut()
-        { 
-            newData.playerName = "";
+        {
+            playerStatusData.playerName = "";
             playerNameObj1.SetActive(true);
             playerNameObj2.SetActive(false);
         }

@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace RPGCreateNow_Local.System
+namespace RPGCreateNow_Local.Data
 {
-    public class FileAccessSystem
+    public class FileDataAccess 
     {
         const byte FOURBIT = 4;
         const byte ONEBYTE = 8;
@@ -29,7 +29,7 @@ namespace RPGCreateNow_Local.System
                 data[i] ^= 0xff;
             }
         }
-        public string SaveFileSystem<T>(string folderPath, string fileName, T saveData) where T : struct
+        public bool SaveFileSystem<T>(string folderPath, string fileName, T saveData) where T : struct
         {
             fileName = folderPath + fileName;
             if (!Directory.Exists(folderPath))
@@ -62,23 +62,23 @@ namespace RPGCreateNow_Local.System
                 }
                 catch (Exception ex)
                 {
-                    return ex.Message;
+                    return false;//ex.Message;
                 }
             }
-            return "成功";
+            return true;//"成功";
         }
-        public string LoadFileSystem<T>(string folderPath, string fileName, out T loadData) where T : struct
+        public bool LoadFileSystem<T>(string folderPath, string fileName, out T loadData) where T : struct
         {
             fileName = folderPath + fileName;
             if (!Directory.Exists(folderPath))
             {
                 loadData = default;
-                return "フォルダーが存在しません";
+                return false; //"フォルダーが存在しません";
             }
             if (!File.Exists(fileName))
             {
                 loadData = default;
-                return "ファイルが存在しません";
+                return false;//"ファイルが存在しません";
             }
 
             byte[] fileData;
@@ -92,7 +92,7 @@ namespace RPGCreateNow_Local.System
                 catch (Exception ex)
                 {
                     loadData = default;
-                    return ex.Message;
+                    return false;//ex.Message;
                 }
             }
 
@@ -103,7 +103,7 @@ namespace RPGCreateNow_Local.System
             if (csum != sum)
             {
                 loadData = default;
-                return $"{csum}/{sum}何かおかしい・・・";
+                return false;//$"{csum}/{sum}何かおかしい・・・";
             }
 
             byte[] binaryData = new byte[fileData.Length - FOURBIT];
@@ -114,7 +114,7 @@ namespace RPGCreateNow_Local.System
                 BinaryFormatter reader = new BinaryFormatter();
                 loadData = (T)reader.Deserialize(ms);
             }
-            return "成功";
+            return true; //"成功";
         }
     }
 }

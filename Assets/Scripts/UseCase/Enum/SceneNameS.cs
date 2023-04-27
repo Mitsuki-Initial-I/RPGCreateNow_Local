@@ -4,7 +4,7 @@ namespace RPGCreateNow_Local.UseCase
     {
        Title,
        Loading,
-       Map,
+       Home,
        Battle,
     }
 }

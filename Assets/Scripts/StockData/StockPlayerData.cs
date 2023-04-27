@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPGCreateNow_Local.UseCase;
 
-namespace RPGCreateNow_Local.Data
+namespace RPGCreateNow_Local.StockData
 {
-    public class StockPlayerData : MonoBehaviour,ISetPlayerData
+    public class StockPlayerData : MonoBehaviour, ISetPlayerData
     {
         PlayerStatus_Structure playerStatusData;
         private void Awake()
