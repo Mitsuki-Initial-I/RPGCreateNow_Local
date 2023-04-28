@@ -20,7 +20,7 @@ namespace RPGCreateNow_Local.System
         PlayerStatus_Structure playerStatusData = new PlayerStatus_Structure();
         PlayLog_Structure playLogData = new PlayLog_Structure();
 
-        ISetPlayerData setPlayerData;
+        IStockData setPlayerData;
 
         SceneChangeSystem sceneChangeSystem = new SceneChangeSystem();
         PlayerStatusDataAccess playerStatusDataAccess = new PlayerStatusDataAccess();
@@ -29,7 +29,7 @@ namespace RPGCreateNow_Local.System
         {
             playerNameObj1.SetActive(false);
             playerNameObj2.SetActive(false);
-            setPlayerData = GameObject.Find("StockPlayerData").GetComponent<ISetPlayerData>();
+            setPlayerData = GameObject.Find("StockPlayerData").GetComponent<IStockData>();
             string pass = $"{Application.persistentDataPath}/Data";
            
             if (!Directory.Exists(pass))

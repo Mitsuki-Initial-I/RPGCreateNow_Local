@@ -11,7 +11,9 @@ namespace RPGCreateNow_Local.System
     {
         public GameObject SelectBox;
         public EventSystem eventSystem;
-        string[] setWord; private void SelectButtonReset()
+        string[] setWord; 
+        
+        private void SelectButtonReset()
         {
             for (int i = 0; i < SelectBox.transform.childCount; i++)
             {
@@ -129,7 +131,13 @@ namespace RPGCreateNow_Local.System
                 Transform childTransform = SelectBox.transform.GetChild(i);
                 childTransform.GetChild(0).GetComponent<Text>().text = setWord[i];
                 if (i < 5)
-                    childTransform.GetComponent<Button>().onClick.AddListener(() => Debug.Log(eventSystem.currentSelectedGameObject.transform.GetChild(0).GetComponent<Text>().text));
+                    childTransform.GetComponent<Button>().onClick.AddListener(
+                        () =>
+                        {
+                            SceneChangeSystem sceneChangeSystem = new SceneChangeSystem();
+                            sceneChangeSystem.SceneChange(SceneNameS.Battle);
+                        }
+                        );
                 else if (i == 5)
                     childTransform.GetComponent<Button>().onClick.AddListener(SetButton_SearchArea);
                 else

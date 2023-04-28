@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace RPGCreateNow_Local.UseCase
 {
-    public interface ISetPlayerData
+    public interface IStockData
     {
         public void SetPlayerStatusData(PlayerStatus_Structure setData);
+        public PlayerStatus_Structure GetPlayerStatusData();
     }
 }

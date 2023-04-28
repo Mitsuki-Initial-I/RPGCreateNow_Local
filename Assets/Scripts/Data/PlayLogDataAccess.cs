@@ -12,7 +12,7 @@ namespace RPGCreateNow_Local.Data
         public PlayLog_Structure FirstData()
         {
             PlayLog_Structure newData = new PlayLog_Structure();
-            newData.playerId = 0;
+            newData.playerId = 1;
             newData.mainScenarioProcessLv = 0;
             newData.playTime = 0;
             return newData;
