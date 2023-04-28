@@ -237,9 +237,10 @@ namespace RPGCreateNow_Local.System
             else
             {
                 playerStatusData.hp = playerMaxHp;
-                if (playerStatusData.exp / (100 * playerStatusData.lv) != playerStatusData.lv - 1)
+                if (playerStatusData.exp == 100 * playerStatusData.lv)
                 {
-                    playerStatusData.lv = playerStatusData.exp / 100 + 1;
+                    playerStatusData.exp -= 100 * playerStatusData.lv;
+                    playerStatusData.lv++;
                 }
                 IStockData setPlayerData = GameObject.Find("StockPlayerData").GetComponent<IStockData>();
                 PlayerStatusDataAccess playerStatusDataAccess = new PlayerStatusDataAccess();
@@ -286,12 +287,10 @@ namespace RPGCreateNow_Local.System
                         buttontBox.SetActive(true);
                         break;
                     case BattlePhase.Action1ResultText:
-                        Debug.Log("ÉäÉUÉãÉgï\é¶");
                         textBox.transform.GetChild(0).GetComponent<Text>().text = Action1ResultText_String(AttackerFlg);
                         phase = phase == BattlePhase.Action1ResultText ? BattlePhase.EndCheck1: phase;
                         break;
                     case BattlePhase.EndCheck1:
-                        Debug.Log("èÛãµîcà¨");
                         textBox.transform.GetChild(0).GetComponent<Text>().text = Action2TextOpen_String(AttackerFlg);
                         phase = BattlePhase.Action2ResultText;
                         break;

@@ -23,7 +23,6 @@ namespace RPGCreateNow_Local.StockData
         void IStockData.SetPlayerStatusData(PlayerStatus_Structure setData)
         {
             playerStatusData = setData;
-            Debug.Log(playerStatusData.playerName);
         }
         PlayerStatus_Structure IStockData.GetPlayerStatusData()
         {
