@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using RPGCreateNow_Local.UseCase;
 using UnityEngine.EventSystems;
-
+using RPGCreateNow_Local.Data;
 
 namespace RPGCreateNow_Local.System
 {
@@ -51,6 +51,18 @@ namespace RPGCreateNow_Local.System
                 {
                     case SearchAreaNames.meadow:
                         setWord[i] = "ëêå¥";
+                        break;
+                    case SearchAreaNames.forest:
+                        setWord[i] = "êXó—";
+                        break;
+                    case SearchAreaNames.volcano:
+                        setWord[i] = "âŒéR";
+                        break;
+                    case SearchAreaNames.Ocean:
+                        setWord[i] = "äCå¥";
+                        break;
+                    case SearchAreaNames.cave:
+                        setWord[i] = "ì¥åA";
                         break;
                     default:
                         break;
@@ -122,6 +134,18 @@ namespace RPGCreateNow_Local.System
                 case "ëêå¥":
                     searchAreaNames = SearchAreaNames.meadow;
                     break;
+                case "êXó—":
+                    searchAreaNames = SearchAreaNames.forest;
+                    break;
+                case "âŒéR":
+                    searchAreaNames = SearchAreaNames.volcano;
+                    break;
+                case "äCå¥":
+                    searchAreaNames = SearchAreaNames.Ocean;
+                    break;
+                case "ì¥åA":
+                    searchAreaNames = SearchAreaNames.cave;
+                    break;
                 default:
                     break;
             }
@@ -134,6 +158,10 @@ namespace RPGCreateNow_Local.System
                     childTransform.GetComponent<Button>().onClick.AddListener(
                         () =>
                         {
+                            EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+                            var getText = eventSystem.currentSelectedGameObject.transform.GetChild(0).GetComponent<Text>().text;
+                            EnemyStatusDataAccess enemyStatusDataAccess = new EnemyStatusDataAccess();
+                            enemyStatusDataAccess.LoadMapData(getText);
                             SceneChangeSystem sceneChangeSystem = new SceneChangeSystem();
                             sceneChangeSystem.SceneChange(SceneNameS.Battle);
                         }

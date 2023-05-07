@@ -3150,7 +3150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textBox: {fileID: 1017045869}
-  buttontBox: {fileID: 1227545873}
+  selectButtontBox: {fileID: 1227545873}
   eventSystem: {fileID: 1063560554}
 --- !u!1 &1802726292
 GameObject:

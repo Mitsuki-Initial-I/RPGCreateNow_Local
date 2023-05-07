@@ -3,13 +3,17 @@ namespace RPGCreateNow_Local.UseCase
     public enum BattlePhase
     {
         Start,
-        Wait,
-        BattleStart,
-        Action1ResultText,
-        EndCheck1,
-        Action2ResultText,
-        EndCheck2,
+        Start_Wait,
+        Select,
+        Select_Wait,
+        Battle_PhaseONE_Start,
+        Battle_PhaseONE_Wait,
+        Battle_PhaseONE_EndCheck,
+        Battle_PhaseTWO_Start,
+        Battle_PhaseTWO_Wait,
+        Battle_PhaseTWO_EndCheck,
         End,
+        Result,
         SceneChange,
     }
 }
