@@ -12,7 +12,9 @@ namespace RPGCreateNow_Local.System
         public GameObject SelectBox;
         public EventSystem eventSystem;
         string[] setWord; 
-        
+        int clearStageNum = 0;
+        const int MAXSTAGE = 5;
+
         private void SelectButtonReset()
         {
             for (int i = 0; i < SelectBox.transform.childCount; i++)
@@ -38,76 +40,83 @@ namespace RPGCreateNow_Local.System
                 }
             }
         }
-        void SetWord_SearchAreaName(int searchAreaNum)
+        void SetWord_SearchAreaName()
         {
-            setWord = new string[searchAreaNum];
-            for (int i = 0; i < searchAreaNum; i++)
+            Play_SearchAchievementRate_Structure setPlayerData = GameObject.Find("StockPlayerData").GetComponent<IStockData>().GetPlay_SearchAchievementRateData();
+            int mapNumber = -1;
+            for(int i = 0; i < setPlayerData.play_SearchStages.Length; i++)
             {
-                if (searchAreaNum - 1 == i)
+                if (!setPlayerData.play_SearchStages[i].clearFlag)
+                {
+                    mapNumber = setPlayerData.play_SearchStages[i].mapNumber;
+                    break;
+                }
+            }
+            if (mapNumber == -1)
+            {
+                mapNumber = setPlayerData.play_SearchStages[setPlayerData.play_SearchStages.Length - 1].mapNumber;
+            }
+            setWord = new string[(mapNumber + 2)];
+            Debug.Log(mapNumber + 1);
+            for (int i = 0; i < setWord.Length; i++)
+            {
+                if (setWord.Length-1 == i)
                 {
                     setWord[i] = "‚à‚Ç‚é";
+                    Debug.Log(setWord.Length);
                 }
-                switch ((SearchAreaNames)i)
+                else
                 {
-                    case SearchAreaNames.meadow:
-                        setWord[i] = "‘Œ´";
-                        break;
-                    case SearchAreaNames.forest:
-                        setWord[i] = "X—Ñ";
-                        break;
-                    case SearchAreaNames.volcano:
-                        setWord[i] = "‰ÎŽR";
-                        break;
-                    case SearchAreaNames.Ocean:
-                        setWord[i] = "ŠCŒ´";
-                        break;
-                    case SearchAreaNames.cave:
-                        setWord[i] = "“´ŒA";
-                        break;
-                    default:
-                        break;
+                    switch ((SearchAreaNames)i)
+                    {
+                        case SearchAreaNames.meadow:
+                            setWord[i] = "‘Œ´";
+                            break;
+                        case SearchAreaNames.forest:
+                            setWord[i] = "X—Ñ";
+                            break;
+                        case SearchAreaNames.volcano:
+                            setWord[i] = "‰ÎŽR";
+                            break;
+                        case SearchAreaNames.Ocean:
+                            setWord[i] = "ŠCŒ´";
+                            break;
+                        case SearchAreaNames.cave:
+                            setWord[i] = "“´ŒA";
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
         void SetWord_SearchAreaNum(SearchAreaNames areaNames)
         {
+            clearStageNum = 0;
+            Play_SearchAchievementRate_Structure setPlayerData = GameObject.Find("StockPlayerData").GetComponent<IStockData>().GetPlay_SearchAchievementRateData();
             setWord = new string[SelectBox.transform.childCount];
-            for (int i = 0; i < SelectBox.transform.childCount; i++)
+            for (int i = 0; i < setPlayerData.play_SearchStages.Length; i++)
             {
-                if (i < 5)
-                    setWord[i] = $"{(int)areaNames + 1} - {i + 1}";
-                else if (i == 5)
+                if (setPlayerData.play_SearchStages[i].mapNumber == (int)areaNames && setPlayerData.play_SearchStages[i].clearFlag)
                 {
-                    setWord[i] = "‚à‚Ç‚é";
+                    clearStageNum++;
                 }
-                //else
-                //{
-                //    setWord[i] = "‚Â‚¬‚Ö";
-                //}
             }
-        }
-
-        void SetButton_SearchArea()
-        {
-            SelectButtonReset();
-            int selectHomeActionNum = Enum.GetValues(typeof(SearchAreaNames)).Length;
-            SetWord_SearchAreaName(selectHomeActionNum + 1);
-            for (int i = 0; i < SelectBox.transform.childCount; i++)
+            clearStageNum++;
+            for (int i = 0; i <= clearStageNum; i++)
             {
-                Transform childTransform = SelectBox.transform.GetChild(i);
-                if (i >= selectHomeActionNum + 1)
+                if (i < MAXSTAGE && i < clearStageNum)
                 {
-                    childTransform.gameObject.SetActive(false);
+                    setWord[i] = $"{(int)areaNames + 1} - {i + 1}";
+                }
+                else if (i == clearStageNum || i == MAXSTAGE)
+                {
+                    if (setWord[i - 1] == "‚à‚Ç‚é") return;
+                    setWord[i] = "‚à‚Ç‚é";
                 }
                 else
                 {
-                    childTransform.GetChild(0).GetComponent<Text>().text = setWord[i];
-
-                    if (i == selectHomeActionNum)
-                        childTransform.GetComponent<Button>().onClick.AddListener(SetSelectHomeButton);
-                    else
-                        childTransform.GetComponent<Button>().onClick.AddListener(SetButtonEvetn_SearchArea);
-
+                    setWord[i] = "‚Â‚¬‚Ö";
                 }
             }
         }
@@ -150,11 +159,12 @@ namespace RPGCreateNow_Local.System
                     break;
             }
             SetWord_SearchAreaNum(searchAreaNames);
+            bool oneFlg=false;
             for (int i = 0; i < SelectBox.transform.childCount; i++)
             {
                 Transform childTransform = SelectBox.transform.GetChild(i);
                 childTransform.GetChild(0).GetComponent<Text>().text = setWord[i];
-                if (i < 5)
+                if (i < MAXSTAGE && i < clearStageNum)
                     childTransform.GetComponent<Button>().onClick.AddListener(
                         () =>
                         {
@@ -166,13 +176,42 @@ namespace RPGCreateNow_Local.System
                             sceneChangeSystem.SceneChange(SceneNameS.Battle);
                         }
                         );
-                else if (i == 5)
+                else if (i > clearStageNum)
+                    childTransform.gameObject.SetActive(false);
+                else if (i == MAXSTAGE || i == clearStageNum&& !oneFlg)
+                {
+                    oneFlg = true;
                     childTransform.GetComponent<Button>().onClick.AddListener(SetButton_SearchArea);
+                }
                 else
                     childTransform.gameObject.SetActive(false);
             }
         }
 
+        void SetButton_SearchArea()
+        {
+            SelectButtonReset();
+            int selectHomeActionNum = Enum.GetValues(typeof(SearchAreaNames)).Length;
+            //            SetWord_SearchAreaName(selectHomeActionNum + 1);
+            SetWord_SearchAreaName();
+            for (int i = 0; i < SelectBox.transform.childCount; i++)
+            {
+                Transform childTransform = SelectBox.transform.GetChild(i);
+                if (i >= setWord.Length)
+                {
+                    childTransform.gameObject.SetActive(false);
+                }
+                else
+                {
+                    childTransform.GetChild(0).GetComponent<Text>().text = setWord[i];
+
+                    if (i == setWord.Length - 1)
+                        childTransform.GetComponent<Button>().onClick.AddListener(SetSelectHomeButton);
+                    else
+                        childTransform.GetComponent<Button>().onClick.AddListener(SetButtonEvetn_SearchArea);
+                }
+            }
+        }
         public void SetSelectHomeButton()
         {
             SelectButtonReset();

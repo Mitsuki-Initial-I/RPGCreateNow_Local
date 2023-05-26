@@ -7,7 +7,7 @@ namespace RPGCreateNow_Local.Data
 {
     public class PlayerStatusDataAccess
     {
-        string fileName = "/playerStatusData.json";
+        public string fileName;// = "/playerStatusData.json";
 
         public PlayerStatus_Structure FirstData()
         {

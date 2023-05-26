@@ -7,7 +7,7 @@ namespace RPGCreateNow_Local.Data
 {
     public class PlayLogDataAccess
     {
-        string fileName = "/playLogData.json";
+        public string fileName; //= "/playLogData.json";
 
         public PlayLog_Structure FirstData()
         {

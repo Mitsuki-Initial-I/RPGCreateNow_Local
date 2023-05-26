@@ -519,6 +519,10 @@ MonoBehaviour:
   playerNameObj2: {fileID: 1483703866}
   playerNameText: {fileID: 2088663359}
   playerNameCheckText: {fileID: 1142804635}
+  fileNames:
+  - /playerStatusData.json
+  - /playLogData.json
+  - /play_SearchAchievementRateData.json
 --- !u!1 &477539687
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,6 +1574,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fcb796edb7edb248a9da963095ac5a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileNames:
+  - /playerStatusData.json
+  - /playLogData.json
+  - /play_SearchAchievementRateData.json
 --- !u!4 &2129890908
 Transform:
   m_ObjectHideFlags: 0

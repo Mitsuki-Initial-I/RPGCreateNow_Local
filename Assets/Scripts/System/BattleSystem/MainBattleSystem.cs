@@ -372,6 +372,20 @@ namespace RPGCreateNow_Local.System
             else if (enemyBattleStatusData.hp <= 0)
             {
                 setStr = $"{playerBattleStatusData.playerName}‚Íí“¬‚ÅŸ—˜‚µ‚½";
+                int[] mapData = stockData.GetStageData();
+                var data = stockData.GetPlay_SearchAchievementRateData();
+                for (int i = 0; i < data.play_SearchStages.Length; i++)
+                {
+                    if (data.play_SearchStages[i].mapNumber == mapData[0] && data.play_SearchStages[i].stageNumber == mapData[1])
+                    {
+                        data.play_SearchStages[i].clearFlag = true;
+                        break;
+                    }
+                }
+                stockData.SetPlay_SearchAchievementRateData(data);
+                Play_SearchAchievementRateDataAccess play_SearchAchievementRateDataAccess = new Play_SearchAchievementRateDataAccess();
+                play_SearchAchievementRateDataAccess.fileName = stockData.GetFileName()[2];
+                play_SearchAchievementRateDataAccess.Play_SearchAchievementRateSave(data);
                 phase = BattlePhase.Result;
             }
             else if (battleAction == BattleMainSelectAction.Escape)
@@ -493,10 +507,10 @@ namespace RPGCreateNow_Local.System
                     if (inputCheck)
                     {
                         playerBattleStatusData.hp = playerMaxHp;
-                        IStockData setPlayerData = GameObject.Find("StockPlayerData").GetComponent<IStockData>();
                         PlayerStatusDataAccess playerStatusDataAccess = new PlayerStatusDataAccess();
+                        playerStatusDataAccess.fileName = stockData.GetFileName()[0];
                         playerStatusDataAccess.PlayerStatusDataSeva(playerBattleStatusData);
-                        setPlayerData.SetPlayerStatusData(playerBattleStatusData);
+                        stockData.SetPlayerStatusData(playerBattleStatusData);
                         phase = BattlePhase.SceneChange;
                     }
                     break;

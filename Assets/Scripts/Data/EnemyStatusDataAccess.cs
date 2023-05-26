@@ -42,6 +42,7 @@ namespace RPGCreateNow_Local.Data
                         setData.lv = int.Parse(csvStrs[i][10]);
                         setData.dropExp = int.Parse(csvStrs[i][11]);
                         stockData.SetEnemyStatusData(setData);
+                        stockData.SetStageData(int.Parse(csvStrs[i][0]), int.Parse(csvStrs[i][1]));
                         return;
                     }
                 }
