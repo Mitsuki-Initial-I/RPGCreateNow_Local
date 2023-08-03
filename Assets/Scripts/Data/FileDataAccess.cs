@@ -60,7 +60,7 @@ namespace RPGCreateNow_Local.Data
                 {
                     fs.Write(binaryData, 0, binaryData.Length);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return false;//ex.Message;
                 }
@@ -89,7 +89,7 @@ namespace RPGCreateNow_Local.Data
                     fileData = new byte[fs.Length];
                     fs.Read(fileData, 0, fileData.Length);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     loadData = default;
                     return false;//ex.Message;

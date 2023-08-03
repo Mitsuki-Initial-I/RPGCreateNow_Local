@@ -2,9 +2,9 @@ namespace RPGCreateNow_Local.UseCase
 {
     public enum SceneNameS
     {
-       Title,
-       Loading,
-       Home,
-       Battle,
+       Title,       // タイトルシーン
+       Loading,     // ロードシーン
+       Home,        // ホームシーン
+       Battle,      // バトルシーン
     }
 }

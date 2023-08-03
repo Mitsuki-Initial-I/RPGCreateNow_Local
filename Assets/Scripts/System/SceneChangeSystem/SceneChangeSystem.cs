@@ -5,6 +5,7 @@ namespace RPGCreateNow_Local.System
 {
     public class SceneChangeSystem
     {
+        // 受け取ったシーン番号のシーンに切り替える
         public void SceneChange(SceneNameS sceneName)
         {
             SceneManager.LoadScene((int)sceneName);
