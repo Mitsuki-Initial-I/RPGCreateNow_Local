@@ -1,4 +1,6 @@
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using RPGCreateNow_Local.UseCase;
@@ -9,6 +11,40 @@ namespace RPGCreateNow_Local.System
     public class MainLoadingSystem : MonoBehaviour
     {
         [SerializeField]
+        string[] folderNames;
+        [SerializeField]
+        string[] fileNames;
+
+        IEnumerator CheckMasterData()
+        {
+            string pass = $"{Application.persistentDataPath}/{folderNames[0]}";
+            if (!Directory.Exists(pass))
+            {
+
+                yield return new WaitForSeconds(1f);
+            }
+            else
+            {
+                yield break;
+            }
+        }
+        IEnumerator Start()
+        {
+            // ここではマスターデータの確認のみ行う
+            var checkData = CheckMasterData();
+
+            yield return checkData;
+
+            SceneChangeSystem sceneChangeSystem = new SceneChangeSystem();
+            sceneChangeSystem.SceneChange(SceneNames.Title);
+        }
+    }
+
+
+    public class MainTest : MonoBehaviour
+    {
+        #region シリアライズフィールド　変数
+        [SerializeField]
         GameObject playerName_InputObj;
         [SerializeField]
         GameObject playerName_CheckObj;
@@ -16,7 +52,9 @@ namespace RPGCreateNow_Local.System
         Text playerNameText;
         [SerializeField]
         Text playerNameCheckText;
+        #endregion
 
+        #region システム変数
         PlayerStatus_Structure playerStatusData = new PlayerStatus_Structure();
         PlayLog_Structure playLogData = new PlayLog_Structure();
         Play_SearchAchievementRate_Structure play_SearchAchievementRateData = new Play_SearchAchievementRate_Structure();
@@ -27,6 +65,7 @@ namespace RPGCreateNow_Local.System
         PlayerStatusDataAccess playerStatusDataAccess = new PlayerStatusDataAccess();
         PlayLogDataAccess playLogDataAccess = new PlayLogDataAccess();
         Play_SearchAchievementRateDataAccess play_SearchAchievementRateDataAccess = new Play_SearchAchievementRateDataAccess();
+        #endregion
 
         private void Start()
         {
@@ -83,7 +122,7 @@ namespace RPGCreateNow_Local.System
                 play_SearchAchievementRateDataAccess.Play_SearchAchievementRateLoad(out play_SearchAchievementRateData);
                 setPlayerData.SetPlayerStatusData(playerStatusData);
                 setPlayerData.SetPlay_SearchAchievementRateData(play_SearchAchievementRateData);
-                sceneChangeSystem.SceneChange(SceneNameS.Home);
+                sceneChangeSystem.SceneChange(SceneNames.Home);
             }
         }
 
@@ -106,7 +145,7 @@ namespace RPGCreateNow_Local.System
             setPlayerData.SetPlayerStatusData(playerStatusData);
             setPlayerData.SetPlay_SearchAchievementRateData(play_SearchAchievementRateData);
             
-            sceneChangeSystem.SceneChange(SceneNameS.Home);
+            sceneChangeSystem.SceneChange(SceneNames.Home);
         }
         // 名前を変える場合、一時保存した名前をリセットし、画面を変える
         public void NameOut()

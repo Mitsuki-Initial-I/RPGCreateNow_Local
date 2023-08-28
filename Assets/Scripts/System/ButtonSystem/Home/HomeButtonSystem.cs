@@ -15,6 +15,8 @@ namespace RPGCreateNow_Local.System
         int clearStageNum = 0;
         const int MAXSTAGE = 5;
 
+
+
         private void SelectButtonReset()
         {
             for (int i = 0; i < SelectBox.transform.childCount; i++)
@@ -173,7 +175,7 @@ namespace RPGCreateNow_Local.System
                             EnemyStatusDataAccess enemyStatusDataAccess = new EnemyStatusDataAccess();
                             enemyStatusDataAccess.LoadMapData(getText);
                             SceneChangeSystem sceneChangeSystem = new SceneChangeSystem();
-                            sceneChangeSystem.SceneChange(SceneNameS.Battle);
+                            sceneChangeSystem.SceneChange(SceneNames.Battle);
                         }
                         );
                 else if (i > clearStageNum)

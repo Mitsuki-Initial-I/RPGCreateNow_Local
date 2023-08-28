@@ -516,7 +516,7 @@ namespace RPGCreateNow_Local.System
                     break;
                 case BattlePhase.SceneChange:
                     SceneChangeSystem sceneChangeSystem = new SceneChangeSystem();
-                    sceneChangeSystem.SceneChange(SceneNameS.Home);
+                    sceneChangeSystem.SceneChange(SceneNames.Home);
                     break;
             }
             textBox.transform.GetChild(0).GetComponent<Text>().text = setStr;

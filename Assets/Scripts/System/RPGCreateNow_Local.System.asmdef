@@ -3,7 +3,8 @@
     "rootNamespace": "RPGCreateNow_Local.System",
     "references": [
         "GUID:c9200d93f9652b74297961977bcc6a30",
-        "GUID:2e2e0da1ad7d7054c8a4a5f30068d390"
+        "GUID:2e2e0da1ad7d7054c8a4a5f30068d390",
+        "GUID:26253c999513ae343b83c645fdd32c02"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -793,50 +793,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266471334}
   m_CullTransparentMesh: 1
---- !u!1 &309725317
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 309725319}
-  - component: {fileID: 309725318}
-  m_Layer: 0
-  m_Name: StockPlayerData
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &309725318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309725317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fcb796edb7edb248a9da963095ac5a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fileNames: []
---- !u!4 &309725319
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309725317}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &358411091
 GameObject:
   m_ObjectHideFlags: 0
@@ -3769,6 +3725,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965481992}
   m_CullTransparentMesh: 1
+--- !u!1 &2045186702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2045186704}
+  - component: {fileID: 2045186703}
+  m_Layer: 0
+  m_Name: StackDataObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2045186703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045186702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fcb796edb7edb248a9da963095ac5a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  folderNames:
+  - SaveData
+  - /File_SaveData1
+  - /File_SaveData2
+  - /File_SaveData3
+  fileNames:
+  - /PlayData_MasterData.json
+  - /Collection_MasterData.json
+  - /PlayData.json
+  - /JobData.json
+  - /SpeciesData.json
+  - /SkillData.json
+  - /ItemData.json
+  - /MonsterData.json
+  - /TechniqueData.json
+  - /MagicData.json
+  - /StatusData.json
+  - /CharacterData.json
+  resourcesDataFaileNames:
+  - SpecoesData
+  - JobData
+  - SkillData
+  - TechniqueData
+  - ItemData
+  - MonserData
+  - CharacterData
+  saveNumber: 0
+--- !u!4 &2045186704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045186702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2050245528
 GameObject:
   m_ObjectHideFlags: 0
