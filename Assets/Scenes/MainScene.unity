@@ -11206,7 +11206,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1230062719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d009ceee362eac4f9ad3316787265c5, type: 3}
+  m_Script: {fileID: 11500000, guid: d75c8da8b41936840a0d7808b32a485b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   saveFolderNames:
@@ -11215,9 +11215,19 @@ MonoBehaviour:
   - PrivateSaveData1
   - PrivateSaveData2
   saveFileNames:
-  - /PlayData_Master.json
-  - /PlayData_Private.json
-  resourceFileNames: []
+  - PlayData_Master.json
+  - PlayData_Private.json
+  resourceFileNames:
+  - SpecoesData
+  - JobData
+  - SkillData
+  - TechniqueData
+  - ItemData
+  - EnlargementData
+  - CharacterData
+  - MonserData
+  - MapData
+  - ShoopItemData
   MainObjects:
   - {fileID: 656028481}
   - {fileID: 723929082}
