@@ -9,7 +9,7 @@ public enum GameSceneNames
     PlayerSetting_Skill,
     PlayerSetting_Check,
     Home,
-    LoadData_Battle,
+    Shop,
     Battle,
 }
 public enum FolderNames

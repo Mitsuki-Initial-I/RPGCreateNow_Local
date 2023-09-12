@@ -124,7 +124,6 @@ public class MainSystem : MonoBehaviour
     }
     #endregion
 
-
     void LoadSaveDatas()
     {
         string pass = $"{Application.persistentDataPath}/{saveFolderNames[(int)FolderNames.MasterFolder]}";
@@ -156,17 +155,26 @@ public class MainSystem : MonoBehaviour
         }
     }
 
+
+    // タイトルで表示されるボタン用
+    // タイトルからセーブデータ選択に切り替える
     public void StratGameButton()
     {
         MainObjects[(int)MainGameObjectNames.Title].SetActive(false);
         MainObjects[(int)MainGameObjectNames.SaveData].SetActive(true);
     }
+
+    // セーブデータ選択で表示されるボタン用
+    // セーブデータ選択からプレイヤ―名設定に切り替える
     public void SaveDataButton()
     {
         MainObjects[(int)MainGameObjectNames.SaveData].SetActive(false);
         MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
         MainObjects[(int)MainGameObjectNames.PlayerName].SetActive(true);
     }
+
+    // プレイヤ―名設定で表示されるボタン用
+    // プレイヤ―名設定から確認画面に切り替える
     public void PlayerNameButton()
     {
         MainObjects[(int)MainGameObjectNames.Check].SetActive(true);
@@ -174,12 +182,18 @@ public class MainSystem : MonoBehaviour
         MainObjects[(int)MainGameObjectNames.PlayerName].SetActive(false);
         gamestate = GameSceneNames.PlayerSetting_Name;
     }
+
+    // 何か複数の中から選択する画面で表示されるボタン用
+    // 選択画面から確認画面に切り替える
     public void SelectButton()
     {
         MainObjects[(int)MainGameObjectNames.Check].SetActive(true);
         MainObjects[(int)MainGameObjectNames.SelectButtons].SetActive(false);
         MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(false);
     }
+
+    // ステータスアップ画面で表示されるボタン用
+    // ステータスアップ画面から次のステートに切り替える
     public void ClauseStatusUpButton()
     {
         MainObjects[(int)MainGameObjectNames.StatusUp].SetActive(false);
@@ -188,12 +202,26 @@ public class MainSystem : MonoBehaviour
         GameStateProcess();
     }
 
+    // ステータス確認で表示されるボタン用
+    public void StatusCheckButton()
+    {
+        MainObjects[(int)MainGameObjectNames.Status].SetActive(false);
+        gamestate++;
+        GameStateProcess();
+    }
+
+
+    // 確認画面で表示される確定ボタン用
+    // 確認画面から次のステートへ切り替える
     public void Check_DeterminationButton()
     {
         MainObjects[(int)MainGameObjectNames.Check].SetActive(false);
         gamestate++;
         GameStateProcess();
     }
+
+    // 確認画面で表示される否定ボタン用
+    // 確認画面から元の画面へ切り替える
     public void Check_CancelButton()
     {
         MainObjects[(int)MainGameObjectNames.Check].SetActive(false); 
@@ -233,12 +261,18 @@ public class MainSystem : MonoBehaviour
                 MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
                 break;
             case GameSceneNames.PlayerSetting_Check:
+                MainObjects[(int)MainGameObjectNames.Status].SetActive(true);
                 break;
             case GameSceneNames.Home:
+                MainObjects[(int)MainGameObjectNames.Home].SetActive(true);
                 break;
-            case GameSceneNames.LoadData_Battle:
+            case GameSceneNames.Shop:
+                MainObjects[(int)MainGameObjectNames.Shop].SetActive(true);
                 break;
             case GameSceneNames.Battle:
+                MainObjects[(int)MainGameObjectNames.BattleSelectButton].SetActive(true);
+                MainObjects[(int)MainGameObjectNames.BattleStatus].SetActive(true);
+                MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
                 break;
         }
     }
