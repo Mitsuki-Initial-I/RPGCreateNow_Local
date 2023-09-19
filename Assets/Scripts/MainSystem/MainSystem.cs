@@ -1,7 +1,7 @@
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -83,20 +83,20 @@ public class MainSystem : MonoBehaviour
     public bool LoadFileSystem<T>(string folderPath, string fileName, out T loadData) where T : struct
     {
         fileName = folderPath + fileName;
-        if (!Directory.Exists(folderPath)|| !File.Exists(fileName))
+        if (!Directory.Exists(folderPath) || !File.Exists(fileName))
         {
             loadData = default;
             return false;
         }
         byte[] fileData;
-        using (FileStream fs=new FileStream(fileName,FileMode.Open,FileAccess.Read))
+        using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
         {
             try
             {
                 fileData = new byte[fs.Length];
                 fs.Read(fileData, 0, fileData.Length);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 loadData = default;
                 return false;
@@ -114,7 +114,7 @@ public class MainSystem : MonoBehaviour
         }
         byte[] binaryData = new byte[fileData.Length - FOURBITE];
         Array.Copy(fileData, FOURBITE, binaryData, 0, binaryData.Length);
-        using (MemoryStream ms=new MemoryStream(binaryData)) 
+        using (MemoryStream ms = new MemoryStream(binaryData))
         {
             BinaryFormatter reader = new BinaryFormatter();
             loadData = (T)reader.Deserialize(ms);
@@ -145,7 +145,7 @@ public class MainSystem : MonoBehaviour
         else
         {
             LoadFileSystem(pass, saveFileNames[0], out masterPlayData_);
-            
+
             for (int i = 0; i < privatePlayData_s.Length; i++)
             {
                 privatePlayData_s[i] = default;
@@ -155,7 +155,56 @@ public class MainSystem : MonoBehaviour
         }
     }
 
+    void GameStateProcess()
+    {
+        switch (gamestate)
+        {
+            case GameSceneNames.LoadData_First:
+                // データの読み込み
+                LoadSaveDatas();
+                gamestate = GameSceneNames.Title;
+                break;
+            case GameSceneNames.Title:
+                // タイトルとボタン表示
+                MainObjects[(int)MainGameObjectNames.Title].SetActive(true);
+                break;
+            case GameSceneNames.PlayerSetting_Name:
+                SaveDataButton();
+                break;
+            case GameSceneNames.PlayerSetting_Specoes:
+                MainObjects[(int)MainGameObjectNames.SelectButtons].SetActive(true);
+                MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
+                break;
+            case GameSceneNames.PlayerSetting_Job:
+                MainObjects[(int)MainGameObjectNames.SelectButtons].SetActive(true);
+                MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
+                break;
+            case GameSceneNames.PlayerSetting_Status:
+                MainObjects[(int)MainGameObjectNames.StatusUp].SetActive(true);
+                MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
+                break;
+            case GameSceneNames.PlayerSetting_Skill:
+                MainObjects[(int)MainGameObjectNames.SelectButtons].SetActive(true);
+                MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
+                break;
+            case GameSceneNames.PlayerSetting_Check:
+                MainObjects[(int)MainGameObjectNames.Status].SetActive(true);
+                break;
+            case GameSceneNames.Home:
+                MainObjects[(int)MainGameObjectNames.Home].SetActive(true);
+                break;
+            case GameSceneNames.Shop:
+                MainObjects[(int)MainGameObjectNames.Shop].SetActive(true);
+                break;
+            case GameSceneNames.Battle:
+                MainObjects[(int)MainGameObjectNames.BattleSelectButton].SetActive(true);
+                MainObjects[(int)MainGameObjectNames.BattleStatus].SetActive(true);
+                MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
+                break;
+        }
+    }
 
+    #region Button
     // タイトルで表示されるボタン用
     // タイトルからセーブデータ選択に切り替える
     public void StratGameButton()
@@ -210,7 +259,6 @@ public class MainSystem : MonoBehaviour
         GameStateProcess();
     }
 
-
     // 確認画面で表示される確定ボタン用
     // 確認画面から次のステートへ切り替える
     public void Check_DeterminationButton()
@@ -224,71 +272,22 @@ public class MainSystem : MonoBehaviour
     // 確認画面から元の画面へ切り替える
     public void Check_CancelButton()
     {
-        MainObjects[(int)MainGameObjectNames.Check].SetActive(false); 
+        MainObjects[(int)MainGameObjectNames.Check].SetActive(false);
         GameStateProcess();
     }
-
-    void GameStateProcess()
-    {
-        switch (gamestate)
-        {
-            case GameSceneNames.LoadData_First:
-                // データの読み込み
-                //   LoadSaveDatas();
-                gamestate = GameSceneNames.Title;
-                break;
-            case GameSceneNames.Title:
-                // タイトルとボタン表示
-                MainObjects[(int)MainGameObjectNames.Title].SetActive(true);
-                break;
-            case GameSceneNames.PlayerSetting_Name:
-                SaveDataButton();
-                break;
-            case GameSceneNames.PlayerSetting_Specoes:
-                MainObjects[(int)MainGameObjectNames.SelectButtons].SetActive(true);
-                MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
-                break;
-            case GameSceneNames.PlayerSetting_Job:
-                MainObjects[(int)MainGameObjectNames.SelectButtons].SetActive(true);
-                MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
-                break;
-            case GameSceneNames.PlayerSetting_Status:
-                MainObjects[(int)MainGameObjectNames.StatusUp].SetActive(true);
-                MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
-                break;
-            case GameSceneNames.PlayerSetting_Skill:
-                MainObjects[(int)MainGameObjectNames.SelectButtons].SetActive(true);
-                MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
-                break;
-            case GameSceneNames.PlayerSetting_Check:
-                MainObjects[(int)MainGameObjectNames.Status].SetActive(true);
-                break;
-            case GameSceneNames.Home:
-                MainObjects[(int)MainGameObjectNames.Home].SetActive(true);
-                break;
-            case GameSceneNames.Shop:
-                MainObjects[(int)MainGameObjectNames.Shop].SetActive(true);
-                break;
-            case GameSceneNames.Battle:
-                MainObjects[(int)MainGameObjectNames.BattleSelectButton].SetActive(true);
-                MainObjects[(int)MainGameObjectNames.BattleStatus].SetActive(true);
-                MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
-                break;
-        }
-    }
-
-    void Start()
-    {
-        GameStateProcess();
-        StartCoroutine(Title());
-    }
+    #endregion
     IEnumerator Title()
     {
         yield return new WaitForSeconds(1f);
         GameStateProcess();
     }
-
+    void Start()
+    {
+        GameStateProcess();
+        StartCoroutine(Title());
+    }
     void Update()
     {
+
     }
 }
