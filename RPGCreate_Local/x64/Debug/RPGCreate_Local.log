@@ -1,0 +1,5 @@
+﻿  Application.cpp
+  Window.cpp
+  コードを生成中...
+C:\Users\user\Desktop\Private\MyCreative\CreateNow\RPGCreate_Local\RPGCreate_Local\Window.cpp(17): warning C4715: 'WindowProcdure': 値を返さないコントロール パスがあります。
+  RPGCreate_Local.vcxproj -> C:\Users\user\Desktop\Private\MyCreative\CreateNow\RPGCreate_Local\x64\Debug\RPGCreate_Local.exe
