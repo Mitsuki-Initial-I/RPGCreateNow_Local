@@ -1,0 +1,5 @@
+public enum AttackType
+{
+    Slashing,   // ŽaŒ‚
+    Strike,     // ‘ÅŒ‚
+}

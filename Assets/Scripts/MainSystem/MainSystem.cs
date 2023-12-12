@@ -17,7 +17,7 @@ public class MainSystem : MonoBehaviour
     [SerializeField]
     GameObject[] MainObjects;
 
-    GameSceneNames gamestate = GameSceneNames.LoadData_First;
+    GameSceneNames_a gamestate = GameSceneNames_a.LoadData_First;
 
     #region セーブファイル関連
     const byte FOURBITE = 4;
@@ -159,44 +159,44 @@ public class MainSystem : MonoBehaviour
     {
         switch (gamestate)
         {
-            case GameSceneNames.LoadData_First:
+            case GameSceneNames_a.LoadData_First:
                 // データの読み込み
                 LoadSaveDatas();
-                gamestate = GameSceneNames.Title;
+                gamestate = GameSceneNames_a.Title;
                 break;
-            case GameSceneNames.Title:
+            case GameSceneNames_a.Title:
                 // タイトルとボタン表示
                 MainObjects[(int)MainGameObjectNames.Title].SetActive(true);
                 break;
-            case GameSceneNames.PlayerSetting_Name:
+            case GameSceneNames_a.PlayerSetting_Name:
                 SaveDataButton();
                 break;
-            case GameSceneNames.PlayerSetting_Specoes:
+            case GameSceneNames_a.PlayerSetting_Specoes:
                 MainObjects[(int)MainGameObjectNames.SelectButtons].SetActive(true);
                 MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
                 break;
-            case GameSceneNames.PlayerSetting_Job:
+            case GameSceneNames_a.PlayerSetting_Job:
                 MainObjects[(int)MainGameObjectNames.SelectButtons].SetActive(true);
                 MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
                 break;
-            case GameSceneNames.PlayerSetting_Status:
+            case GameSceneNames_a.PlayerSetting_Status:
                 MainObjects[(int)MainGameObjectNames.StatusUp].SetActive(true);
                 MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
                 break;
-            case GameSceneNames.PlayerSetting_Skill:
+            case GameSceneNames_a.PlayerSetting_Skill:
                 MainObjects[(int)MainGameObjectNames.SelectButtons].SetActive(true);
                 MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
                 break;
-            case GameSceneNames.PlayerSetting_Check:
+            case GameSceneNames_a.PlayerSetting_Check:
                 MainObjects[(int)MainGameObjectNames.Status].SetActive(true);
                 break;
-            case GameSceneNames.Home:
+            case GameSceneNames_a.Home:
                 MainObjects[(int)MainGameObjectNames.Home].SetActive(true);
                 break;
-            case GameSceneNames.Shop:
+            case GameSceneNames_a.Shop:
                 MainObjects[(int)MainGameObjectNames.Shop].SetActive(true);
                 break;
-            case GameSceneNames.Battle:
+            case GameSceneNames_a.Battle:
                 MainObjects[(int)MainGameObjectNames.BattleSelectButton].SetActive(true);
                 MainObjects[(int)MainGameObjectNames.BattleStatus].SetActive(true);
                 MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(true);
@@ -229,7 +229,7 @@ public class MainSystem : MonoBehaviour
         MainObjects[(int)MainGameObjectNames.Check].SetActive(true);
         MainObjects[(int)MainGameObjectNames.CommuTexxt].SetActive(false);
         MainObjects[(int)MainGameObjectNames.PlayerName].SetActive(false);
-        gamestate = GameSceneNames.PlayerSetting_Name;
+        gamestate = GameSceneNames_a.PlayerSetting_Name;
     }
 
     // 何か複数の中から選択する画面で表示されるボタン用
