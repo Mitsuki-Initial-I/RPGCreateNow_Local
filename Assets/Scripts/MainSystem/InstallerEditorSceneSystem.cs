@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Collections;
 using System.IO;
 using System.IO.Compression;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 
 public class InstallerEditorSceneSystem : MonoBehaviour
 {
-    private string url = 
+    private string url =
         "https://drive.google.com/uc?id=1nr4AiNAdPHHYwjtIaflK4XGoYea16Qs6";
 
     public Slider progressBar;
@@ -19,7 +20,7 @@ public class InstallerEditorSceneSystem : MonoBehaviour
 
     //?usp=sharing"; // ダウンロードしたいデータのURL
     //https://drive.google.com/file/d/1nr4AiNAdPHHYwjtIaflK4XGoYea16Qs6/view?usp=sharing
-    
+
     void Start()
     {
         StartCoroutine(DownloadData());
@@ -33,19 +34,19 @@ public class InstallerEditorSceneSystem : MonoBehaviour
 new DownloadHandlerFile(localPath);
 
         webRequest.SendWebRequest();
-        
+
         while (!webRequest.isDone)
         {
             progress = webRequest.downloadProgress;
             progressBar.value = progress;
             progressText.text = (progress * 100f).ToString("F2") + "%";
-            Debug.Log("リクエスト中");
+            UnityEngine.Debug.Log("リクエスト中");
             yield return null;
         }
 
         if (webRequest.result != UnityWebRequest.Result.Success)
         {
-            Debug.Log(webRequest.error);
+            UnityEngine.Debug.Log(webRequest.error);
         }
         else
         {
@@ -54,6 +55,29 @@ new DownloadHandlerFile(localPath);
             progressText.text = (progress * 100f).ToString("F2") + "%";
 
             ZipFile.ExtractToDirectory(localPath, $"{Application.persistentDataPath}\\");
+            File.Delete(localPath);
+
+            string path = $"{Application.persistentDataPath}\\RPGCreateNow\\RPGCreateNow.exe";
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = path,
+                UseShellExecute = true,
+                CreateNoWindow = false
+            };
+            Process process = new Process { StartInfo = psi };
+            try
+            {
+                process.Start();
+            }
+            catch(System.Exception ex)
+            {
+                UnityEngine.Debug.LogError($"Error starting process: {ex.Message}");
+            }
+
+            //#if UNITY_EDITOR
+                        UnityEditor.EditorApplication.isPlaying = false; 
+            //#else
+            //    Application.Quit();//ゲームプレイ終了
         }
     }
 }
