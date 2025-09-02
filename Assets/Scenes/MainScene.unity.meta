@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 8510b04beb869944681c3e1d5fd69753
+=======
+guid: de79c7fe311615047a13d0e7b000ec8e
+>>>>>>> feature/NewTest
 DefaultImporter:
   externalObjects: {}
   userData: 
